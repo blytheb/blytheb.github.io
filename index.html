@@ -4,686 +4,273 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Name - Developer Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0a;
-            color: #fff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .background-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(74, 86, 226, 0.3), transparent 50%),
-                        radial-gradient(circle at 40% 90%, rgba(168, 85, 247, 0.2), transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .noise {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.03;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 0;
-            position: sticky;
-            top: 0;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
-            z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .logo {
-            font-size: 1.5em;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 0.95em;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        header {
-            padding: 120px 0 80px;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 900px;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 50px;
-            font-size: 0.85em;
-            margin-bottom: 30px;
-            color: #a8b3ff;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h1 {
-            font-size: 5em;
-            margin-bottom: 20px;
-            font-weight: 800;
-            line-height: 1.1;
-            background: linear-gradient(135deg, #fff 0%, #a8b3ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.6s ease 0.1s backwards;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-description {
-            font-size: 1.3em;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 40px;
-            max-width: 700px;
-            animation: fadeInUp 0.6s ease 0.2s backwards;
-        }
-
-        .cta-group {
-            display: flex;
-            gap: 20px;
-            animation: fadeInUp 0.6s ease 0.3s backwards;
-        }
-
-        .cta-primary {
-            padding: 16px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .cta-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
-        }
-
-        .cta-secondary {
-            padding: 16px 40px;
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .cta-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .section {
-            padding: 100px 0;
-        }
-
-        .section-header {
-            margin-bottom: 60px;
-        }
-
-        .section-label {
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #667eea;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .section-title {
-            font-size: 3em;
-            font-weight: 800;
-            margin-bottom: 20px;
-        }
-
-        .section-description {
-            font-size: 1.1em;
-            color: rgba(255, 255, 255, 0.6);
-            max-width: 600px;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 40px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(102, 126, 234, 0.1), transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(102, 126, 234, 0.3);
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .project-number {
-            font-size: 0.85em;
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .project-card h3 {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .project-card p {
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 25px;
-            line-height: 1.7;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .tech-tag {
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.85em;
-            color: #a8b3ff;
-            font-weight: 500;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .project-link {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 0.9em;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .project-link:hover {
-            color: #667eea;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .skill-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 35px;
-            transition: all 0.3s ease;
-        }
-
-        .skill-card:hover {
-            border-color: rgba(102, 126, 234, 0.3);
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .skill-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-
-        .skill-card h3 {
-            font-size: 1.4em;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .contact-section {
-            text-align: center;
-            padding: 120px 0;
-            background: rgba(102, 126, 234, 0.03);
-            border-radius: 40px;
-            margin: 80px 0;
-        }
-
-        .contact-section h2 {
-            font-size: 3em;
-            font-weight: 800;
-            margin-bottom: 20px;
-        }
-
-        .contact-section p {
-            font-size: 1.2em;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 40px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .social-link {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.7);
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: rgba(102, 126, 234, 0.2);
-            border-color: rgba(102, 126, 234, 0.4);
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
-            }
-
-            h1 {
-                font-size: 3em;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                gap: 20px;
-            }
-
-            .cta-group {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="background-gradient"></div>
-    <div class="noise"></div>
+<body class="bg-black text-white font-sans overflow-x-hidden">
+    <!-- Background Gradients -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute inset-0 opacity-30" style="background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%), radial-gradient(circle at 80% 80%, rgba(74, 86, 226, 0.3), transparent 50%), radial-gradient(circle at 40% 90%, rgba(168, 85, 247, 0.2), transparent 50%);"></div>
+    </div>
     
-    <div class="container">
-        <nav>
-            <div class="logo">YN.</div>
-            <div class="nav-links">
-                <a href="#work">Work</a>
-                <a href="#skills">Skills</a>
-                <a href="#contact">Contact</a>
+    <!-- Noise Texture -->
+    <div class="fixed inset-0 pointer-events-none z-10 noise"></div>
+    
+    <div class="relative z-20 max-w-7xl mx-auto px-10 md:px-20">
+        <!-- Navigation -->
+        <nav class="sticky top-0 flex justify-between items-center py-8 backdrop-blur-xl bg-black/80 border-b border-white/5">
+            <div class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-purple-800 bg-clip-text text-transparent">
+                YN.
+            </div>
+            <div class="flex gap-10">
+                <a href="#work" class="text-white/70 hover:text-white text-sm transition-all relative group">
+                    Work
+                    <span class="absolute bottom-[-5px] left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-purple-800 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#skills" class="text-white/70 hover:text-white text-sm transition-all relative group">
+                    Skills
+                    <span class="absolute bottom-[-5px] left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-purple-800 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#contact" class="text-white/70 hover:text-white text-sm transition-all relative group">
+                    Contact
+                    <span class="absolute bottom-[-5px] left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-purple-800 group-hover:w-full transition-all duration-300"></span>
+                </a>
             </div>
         </nav>
 
-        <header>
-            <div class="hero-content">
-                <div class="hero-badge">👋 Available for work</div>
-                <h1>Building digital experiences that <span class="gradient-text">matter</span></h1>
-                <p class="hero-description">Full-stack developer crafting elegant, scalable solutions. Specialized in modern web technologies with a passion for clean code and exceptional user experiences.</p>
-                <div class="cta-group">
-                    <a href="#contact" class="cta-primary">Let's Talk</a>
-                    <a href="#work" class="cta-secondary">View Work</a>
+        <!-- Hero Section -->
+        <header class="py-32 md:py-40">
+            <div class="max-w-4xl">
+                <div class="inline-block px-5 py-2 bg-purple-600/10 border border-purple-600/30 rounded-full text-sm mb-8 text-purple-300 opacity-0 animate-fade-in-up">
+                    👋 Available for work
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent opacity-0 animate-fade-in-up animate-delay-100">
+                    Building digital experiences that <span class="bg-gradient-to-r from-purple-500 to-purple-800 bg-clip-text text-transparent">matter</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-white/60 mb-10 max-w-3xl opacity-0 animate-fade-in-up animate-delay-200">
+                    Full-stack developer crafting elegant, scalable solutions. Specialized in modern web technologies with a passion for clean code and exceptional user experiences.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-5 opacity-0 animate-fade-in-up animate-delay-300">
+                    <a href="#contact" class="px-10 py-4 bg-gradient-to-r from-purple-500 to-purple-800 text-white rounded-xl font-semibold hover:-translate-y-0.5 transition-all hover:shadow-xl hover:shadow-purple-500/40">
+                        Let's Talk
+                    </a>
+                    <a href="#work" class="px-10 py-4 bg-white/5 text-white rounded-xl font-semibold border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all">
+                        View Work
+                    </a>
                 </div>
             </div>
         </header>
 
-        <section class="section" id="work">
-            <div class="section-header">
-                <div class="section-label">Featured Projects</div>
-                <h2 class="section-title">Recent Work</h2>
-                <p class="section-description">A selection of projects that showcase my expertise in building modern, scalable applications.</p>
+        <!-- Projects Section -->
+        <section class="py-24 md:py-32" id="work">
+            <div class="mb-16">
+                <div class="text-sm uppercase tracking-widest text-purple-500 mb-4 font-semibold">Featured Projects</div>
+                <h2 class="text-5xl font-extrabold mb-5">Recent Work</h2>
+                <p class="text-xl text-white/60 max-w-2xl">A selection of projects that showcase my expertise in building modern, scalable applications.</p>
             </div>
             
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-number">01</div>
-                    <h3>E-Commerce Platform</h3>
-                    <p>Complete shopping experience with real-time inventory, secure payments, and AI-powered recommendations. Built for scale with microservices architecture.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">PostgreSQL</span>
-                        <span class="tech-tag">Redis</span>
-                        <span class="tech-tag">AWS</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Project Card 1 -->
+                <div class="project-card bg-white/[0.02] border border-white/5 rounded-3xl p-10 hover:-translate-y-2 transition-all duration-300 hover:border-purple-600/30 hover:bg-white/[0.04] cursor-pointer relative overflow-hidden">
+                    <div class="text-sm text-purple-500 font-semibold mb-4">01</div>
+                    <h3 class="text-3xl font-bold mb-4">E-Commerce Platform</h3>
+                    <p class="text-white/60 mb-6 leading-relaxed">Complete shopping experience with real-time inventory, secure payments, and AI-powered recommendations. Built for scale with microservices architecture.</p>
+                    <div class="flex flex-wrap gap-2.5 mb-6">
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">React</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Node.js</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">PostgreSQL</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Redis</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">AWS</span>
                     </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">View Live →</a>
-                        <a href="#" class="project-link">GitHub →</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-number">02</div>
-                    <h3>SaaS Analytics Dashboard</h3>
-                    <p>Real-time analytics platform processing millions of events daily. Features advanced visualizations, custom reporting, and team collaboration.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Next.js</span>
-                        <span class="tech-tag">TypeScript</span>
-                        <span class="tech-tag">GraphQL</span>
-                        <span class="tech-tag">MongoDB</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">View Live →</a>
-                        <a href="#" class="project-link">GitHub →</a>
+                    <div class="flex gap-5">
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">View Live →</a>
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">GitHub →</a>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-number">03</div>
-                    <h3>AI Content Generator</h3>
-                    <p>Smart content creation tool leveraging LLMs for marketing copy, SEO optimization, and multilingual support. Processed 100K+ generations.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">FastAPI</span>
-                        <span class="tech-tag">OpenAI</span>
-                        <span class="tech-tag">Vue.js</span>
+                <!-- Project Card 2 -->
+                <div class="project-card bg-white/[0.02] border border-white/5 rounded-3xl p-10 hover:-translate-y-2 transition-all duration-300 hover:border-purple-600/30 hover:bg-white/[0.04] cursor-pointer relative overflow-hidden">
+                    <div class="text-sm text-purple-500 font-semibold mb-4">02</div>
+                    <h3 class="text-3xl font-bold mb-4">SaaS Analytics Dashboard</h3>
+                    <p class="text-white/60 mb-6 leading-relaxed">Real-time analytics platform processing millions of events daily. Features advanced visualizations, custom reporting, and team collaboration.</p>
+                    <div class="flex flex-wrap gap-2.5 mb-6">
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Next.js</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">TypeScript</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">GraphQL</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">MongoDB</span>
                     </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">View Live →</a>
-                        <a href="#" class="project-link">GitHub →</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-number">04</div>
-                    <h3>Real-Time Collaboration Tool</h3>
-                    <p>Team workspace with live document editing, video conferencing, and project management. Built for distributed teams.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">WebRTC</span>
-                        <span class="tech-tag">Socket.io</span>
-                        <span class="tech-tag">Docker</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">View Live →</a>
-                        <a href="#" class="project-link">GitHub →</a>
+                    <div class="flex gap-5">
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">View Live →</a>
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">GitHub →</a>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-number">05</div>
-                    <h3>Mobile Banking App</h3>
-                    <p>Secure fintech application with biometric auth, real-time transactions, and investment portfolio tracking. Bank-grade security.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">React Native</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">PostgreSQL</span>
-                        <span class="tech-tag">Plaid</span>
+                <!-- Project Card 3 -->
+                <div class="project-card bg-white/[0.02] border border-white/5 rounded-3xl p-10 hover:-translate-y-2 transition-all duration-300 hover:border-purple-600/30 hover:bg-white/[0.04] cursor-pointer relative overflow-hidden">
+                    <div class="text-sm text-purple-500 font-semibold mb-4">03</div>
+                    <h3 class="text-3xl font-bold mb-4">AI Content Generator</h3>
+                    <p class="text-white/60 mb-6 leading-relaxed">Smart content creation tool leveraging LLMs for marketing copy, SEO optimization, and multilingual support. Processed 100K+ generations.</p>
+                    <div class="flex flex-wrap gap-2.5 mb-6">
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Python</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">FastAPI</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">OpenAI</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Vue.js</span>
                     </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">View Live →</a>
-                        <a href="#" class="project-link">GitHub →</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-number">06</div>
-                    <h3>Developer Portfolio CMS</h3>
-                    <p>Headless CMS for developers to showcase work with markdown support, SEO optimization, and analytics integration.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Next.js</span>
-                        <span class="tech-tag">Prisma</span>
-                        <span class="tech-tag">Vercel</span>
-                        <span class="tech-tag">Tailwind</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">View Live →</a>
-                        <a href="#" class="project-link">GitHub →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="skills">
-            <div class="section-header">
-                <div class="section-label">Expertise</div>
-                <h2 class="section-title">Skills & Technologies</h2>
-                <p class="section-description">Comprehensive tech stack with focus on modern, scalable solutions.</p>
-            </div>
-
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">⚡</div>
-                    <h3>Frontend Development</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">React / Next.js</span>
-                        <span class="skill-item">TypeScript</span>
-                        <span class="skill-item">Vue.js</span>
-                        <span class="skill-item">Tailwind CSS</span>
-                        <span class="skill-item">Three.js</span>
+                    <div class="flex gap-5">
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">View Live →</a>
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">GitHub →</a>
                     </div>
                 </div>
 
-                <div class="skill-card">
-                    <div class="skill-icon">🚀</div>
-                    <h3>Backend Development</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Node.js</span>
-                        <span class="skill-item">Python</span>
-                        <span class="skill-item">GraphQL</span>
-                        <span class="skill-item">REST APIs</span>
-                        <span class="skill-item">Microservices</span>
+                <!-- Project Card 4 -->
+                <div class="project-card bg-white/[0.02] border border-white/5 rounded-3xl p-10 hover:-translate-y-2 transition-all duration-300 hover:border-purple-600/30 hover:bg-white/[0.04] cursor-pointer relative overflow-hidden">
+                    <div class="text-sm text-purple-500 font-semibold mb-4">04</div>
+                    <h3 class="text-3xl font-bold mb-4">Real-Time Collaboration Tool</h3>
+                    <p class="text-white/60 mb-6 leading-relaxed">Team workspace with live document editing, video conferencing, and project management. Built for distributed teams.</p>
+                    <div class="flex flex-wrap gap-2.5 mb-6">
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">React</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">WebRTC</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Socket.io</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Docker</span>
+                    </div>
+                    <div class="flex gap-5">
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">View Live →</a>
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">GitHub →</a>
                     </div>
                 </div>
 
-                <div class="skill-card">
-                    <div class="skill-icon">💾</div>
-                    <h3>Database & Cloud</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">PostgreSQL</span>
-                        <span class="skill-item">MongoDB</span>
-                        <span class="skill-item">Redis</span>
-                        <span class="skill-item">AWS</span>
-                        <span class="skill-item">Docker</span>
+                <!-- Project Card 5 -->
+                <div class="project-card bg-white/[0.02] border border-white/5 rounded-3xl p-10 hover:-translate-y-2 transition-all duration-300 hover:border-purple-600/30 hover:bg-white/[0.04] cursor-pointer relative overflow-hidden">
+                    <div class="text-sm text-purple-500 font-semibold mb-4">05</div>
+                    <h3 class="text-3xl font-bold mb-4">Mobile Banking App</h3>
+                    <p class="text-white/60 mb-6 leading-relaxed">Secure fintech application with biometric auth, real-time transactions, and investment portfolio tracking. Bank-grade security.</p>
+                    <div class="flex flex-wrap gap-2.5 mb-6">
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">React Native</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Node.js</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">PostgreSQL</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Plaid</span>
+                    </div>
+                    <div class="flex gap-5">
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">View Live →</a>
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">GitHub →</a>
                     </div>
                 </div>
 
-                <div class="skill-card">
-                    <div class="skill-icon">🎨</div>
-                    <h3>Design & Tools</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Figma</span>
-                        <span class="skill-item">UI/UX Design</span>
-                        <span class="skill-item">Git</span>
-                        <span class="skill-item">CI/CD</span>
-                        <span class="skill-item">Agile</span>
+                <!-- Project Card 6 -->
+                <div class="project-card bg-white/[0.02] border border-white/5 rounded-3xl p-10 hover:-translate-y-2 transition-all duration-300 hover:border-purple-600/30 hover:bg-white/[0.04] cursor-pointer relative overflow-hidden">
+                    <div class="text-sm text-purple-500 font-semibold mb-4">06</div>
+                    <h3 class="text-3xl font-bold mb-4">Developer Portfolio CMS</h3>
+                    <p class="text-white/60 mb-6 leading-relaxed">Headless CMS for developers to showcase work with markdown support, SEO optimization, and analytics integration.</p>
+                    <div class="flex flex-wrap gap-2.5 mb-6">
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Next.js</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Prisma</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Vercel</span>
+                        <span class="px-3.5 py-1.5 bg-purple-600/10 border border-purple-600/20 rounded-lg text-sm text-purple-300 font-medium">Tailwind</span>
+                    </div>
+                    <div class="flex gap-5">
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">View Live →</a>
+                        <a href="#" class="text-white/70 hover:text-purple-500 text-sm transition-colors">GitHub →</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="contact-section" id="contact">
-            <h2>Let's Build Something Amazing</h2>
-            <p>Open to freelance projects, full-time opportunities, and collaborations.</p>
-            <div class="cta-group" style="justify-content: center;">
-                <a href="mailto:your.email@example.com" class="cta-primary">Get In Touch</a>
-                <a href="#" class="cta-secondary">Download Resume</a>
+        <!-- Skills Section -->
+        <section class="py-24 md:py-32" id="skills">
+            <div class="mb-16">
+                <div class="text-sm uppercase tracking-widest text-purple-500 mb-4 font-semibold">Expertise</div>
+                <h2 class="text-5xl font-extrabold mb-5">Skills & Technologies</h2>
+                <p class="text-xl text-white/60 max-w-2xl">Comprehensive tech stack with focus on modern, scalable solutions.</p>
             </div>
-            <div class="social-links">
-                <a href="https://github.com" class="social-link" target="_blank">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Skill Card 1 -->
+                <div class="bg-white/[0.02] border border-white/5 rounded-2xl p-9 hover:border-purple-600/30 hover:bg-white/[0.04] transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-800 rounded-xl flex items-center justify-center text-2xl mb-5">⚡</div>
+                    <h3 class="text-2xl font-bold mb-4">Frontend Development</h3>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">React / Next.js</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">TypeScript</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Vue.js</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Tailwind CSS</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Three.js</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 2 -->
+                <div class="bg-white/[0.02] border border-white/5 rounded-2xl p-9 hover:border-purple-600/30 hover:bg-white/[0.04] transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-800 rounded-xl flex items-center justify-center text-2xl mb-5">🚀</div>
+                    <h3 class="text-2xl font-bold mb-4">Backend Development</h3>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Node.js</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Python</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">GraphQL</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">REST APIs</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Microservices</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 3 -->
+                <div class="bg-white/[0.02] border border-white/5 rounded-2xl p-9 hover:border-purple-600/30 hover:bg-white/[0.04] transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-800 rounded-xl flex items-center justify-center text-2xl mb-5">💾</div>
+                    <h3 class="text-2xl font-bold mb-4">Database & Cloud</h3>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">PostgreSQL</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">MongoDB</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Redis</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">AWS</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Docker</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 4 -->
+                <div class="bg-white/[0.02] border border-white/5 rounded-2xl p-9 hover:border-purple-600/30 hover:bg-white/[0.04] transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-800 rounded-xl flex items-center justify-center text-2xl mb-5">🎨</div>
+                    <h3 class="text-2xl font-bold mb-4">Design & Tools</h3>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Figma</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">UI/UX Design</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Git</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">CI/CD</span>
+                        <span class="px-4 py-2 bg-white/5 rounded-lg text-sm text-white/80">Agile</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <div class="text-center py-32 bg-purple-600/[0.03] rounded-[2.5rem] my-20" id="contact">
+            <h2 class="text-5xl font-extrabold mb-5">Let's Build Something Amazing</h2>
+            <p class="text-xl text-white/60 mb-10">Open to freelance projects, full-time opportunities, and collaborations.</p>
+            <div class="flex flex-col sm:flex-row gap-5 justify-center mb-8">
+                <a href="mailto:your.email@example.com" class="px-10 py-4 bg-gradient-to-r from-purple-500 to-purple-800 text-white rounded-xl font-semibold hover:-translate-y-0.5 transition-all hover:shadow-xl hover:shadow-purple-500/40">
+                    Get In Touch
+                </a>
+                <a href="#" class="px-10 py-4 bg-white/5 text-white rounded-xl font-semibold border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all">
+                    Download Resume
+                </a>
+            </div>
+            <div class="flex gap-5 justify-center mt-8">
+                <a href="https://github.com" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:bg-purple-600/20 hover:border-purple-600/40 hover:text-white hover:-translate-y-0.5 transition-all" target="_blank">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                 </a>
-                <a href="https://linkedin.com" class="social-link" target="_blank">
+                <a href="https://linkedin.com" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:bg-purple-600/20 hover:border-purple-600/40 hover:text-white hover:-translate-y-0.5 transition-all" target="_blank">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 </a>
-                <a href="mailto:your.email@example.com" class="social-link">
+                <a href="mailto:your.email@example.com" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:bg-purple-600/20 hover:border-purple-600/40 hover:text-white hover:-translate-y-0.5 transition-all">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                 </a>
             </div>
         </div>
 
-        <footer>
+        <!-- Footer -->
+        <footer class="text-center py-16 border-t border-white/5 text-white/40">
             <p>© 2024 Your Name. Crafted with precision and passion.</p>
         </footer>
     </div>
 
     <script>
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                card.style.setProperty('--mouse-x', `${x}%`);
-                card.style.setProperty('--mouse-y', `${y}%`);
-            });
-        });
-
+        // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -691,6 +278,21 @@
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
+            });
+        });
+
+        // Mouse follow effect on project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(102, 126, 234, 0.1), rgba(255, 255, 255, 0.02))`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'rgba(255, 255, 255, 0.02)';
             });
         });
     </script>
